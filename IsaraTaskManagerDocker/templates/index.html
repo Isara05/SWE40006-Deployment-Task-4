@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isara Task Manager</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        header {
+            background: #172554;
+            color: white;
+            padding: 28px 8%;
+        }
+
+        header h1 {
+            margin: 0 0 6px;
+        }
+
+        header p {
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        main {
+            width: 84%;
+            max-width: 1100px;
+            margin: 35px auto;
+        }
+
+        .status {
+            background: #ffffff;
+            padding: 18px 22px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .status strong {
+            color: #15803d;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+
+        form {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        input, select, button {
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
+            font-size: 14px;
+        }
+
+        input {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding-left: 22px;
+            padding-right: 22px;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 14px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background: #f8fafc;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 12px;
+            background: #e0e7ff;
+            color: #3730a3;
+            font-size: 12px;
+        }
+
+        footer {
+            text-align: center;
+            color: #6b7280;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Isara Task Manager</h1>
+    <p>Docker Container Deployment Edition</p>
+</header>
+
+<main>
+
+    <div class="status">
+        Container Application Status:
+        <strong>● Running</strong>
+    </div>
+
+    <div class="card">
+        <h2>Add New Task</h2>
+
+        <form action="/add" method="POST">
+            <input
+                type="text"
+                name="name"
+                placeholder="Enter task name"
+                required
+            >
+
+            <select name="priority">
+                <option value="Low">Low Priority</option>
+                <option value="Medium">Medium Priority</option>
+                <option value="High">High Priority</option>
+            </select>
+
+            <button type="submit">Add Task</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>Current Tasks</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ task.name }}</td>
+                    <td>{{ task.priority }}</td>
+                    <td>
+                        <span class="badge">{{ task.status }}</span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<footer>
+    Isara Task Manager • Containerized with Docker
+</footer>
+
+</body>
+</html>
